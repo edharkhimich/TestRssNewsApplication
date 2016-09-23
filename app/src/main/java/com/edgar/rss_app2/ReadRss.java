@@ -6,8 +6,7 @@ import android.os.AsyncTask;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+
 
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
@@ -25,7 +24,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 public class ReadRss extends AsyncTask<Void, Void, Void> {
     Context context;
-    String address = "http://www.cbc.ca/cmlink/rss-topstories";
+    private static final String URL = "http://www.cbc.ca/cmlink/rss-topstories";
     ProgressDialog progressDialog;
     URL url;
     ArrayList<News>feedItems;
@@ -35,26 +34,26 @@ public class ReadRss extends AsyncTask<Void, Void, Void> {
     public ReadRss(Context context, RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
         this.context = context;
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Loading...");
+//        progressDialog = new ProgressDialog(context);
+//        progressDialog.setMessage("Loading...");
     }
 
     @Override
     protected void onPreExecute() {
-        progressDialog.show();
+//        progressDialog.show();
         super.onPreExecute();
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
 
         MyAdapter adapter = new MyAdapter(context,feedItems);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
 
-        }
+    }
 
 
     @Override
@@ -107,7 +106,7 @@ public class ReadRss extends AsyncTask<Void, Void, Void> {
 
     public Document Getdata() {
         try {
-            url = new URL(address);
+            url = new URL(URL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             InputStream inputStream = connection.getInputStream();
