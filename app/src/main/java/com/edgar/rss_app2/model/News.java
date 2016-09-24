@@ -1,14 +1,14 @@
-package com.edgar.rss_app2;
+package com.edgar.rss_app2.model;
 
 
 public class News {
 
-        String title;
-        String link;
-        String description;
-        String pubDate;
-        String image;
-        String author;
+    String title;
+    String link;
+    String description;
+    String pubDate;
+    String image;
+    String author;
 
     public String getTitle() {
         return title;

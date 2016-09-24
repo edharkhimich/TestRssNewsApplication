@@ -1,4 +1,4 @@
-package com.edgar.rss_app2;
+package com.edgar.rss_app2.extra;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -6,9 +6,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.Window;
 import android.view.WindowManager;
 
-/**
- * Created by edgar on 23.09.16.
- */
+import com.edgar.rss_app2.R;
+
 
 public class LanProgressDialog extends Dialog {
 

@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Holo.NoActionBar">
-        <activity android:name=".MainActivity"
+        <activity android:name=".activities.MainActivity"
             android:theme="@style/my_user_theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WebPage"
+        <activity android:name=".activities.WebPageActivity"
             android:theme="@style/my_user_theme"
             />
     </application>

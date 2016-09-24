@@ -1,10 +1,14 @@
-package com.edgar.rss_app2;
+package com.edgar.rss_app2.parsel;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import com.edgar.rss_app2.R;
+import com.edgar.rss_app2.adapter.MyAdapter;
+import com.edgar.rss_app2.extra.LanProgressDialog;
+import com.edgar.rss_app2.model.News;
 
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
@@ -20,35 +24,34 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class ReadRss extends AsyncTask<Void, Void, Void> {
+public class RssParsel extends AsyncTask<Void, Void, Void> {
 
-    Context context;
     private static final String URL = "http://www.cbc.ca/cmlink/rss-topstories";
-    ProgressDialog progressDialog;
-    URL url;
-    ArrayList<News>feedItems;
+    Context context;
+    LanProgressDialog dialog;
+    ArrayList<News> feedItems;
     RecyclerView recyclerView;
+    URL url;
 
-
-    public ReadRss(Context context, RecyclerView recyclerView) {
+    public RssParsel(Context context, RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
         this.context = context;
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Loading...");
+        dialog = new LanProgressDialog(context);
+        dialog.setTitle(R.string.loading);
     }
 
     @Override
     protected void onPreExecute() {
-        progressDialog.show();
+        dialog.show();
         super.onPreExecute();
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        progressDialog.dismiss();
+        dialog.dismiss();
 
-        MyAdapter adapter = new MyAdapter(context,feedItems);
+        MyAdapter adapter = new MyAdapter(context, feedItems);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
     }
@@ -68,24 +71,24 @@ public class ReadRss extends AsyncTask<Void, Void, Void> {
             NodeList items = channel.getChildNodes();
             for (int i = 0; i < items.getLength(); i++) {
                 Node cureentchild = items.item(i);
-                if (cureentchild.getNodeName().equalsIgnoreCase("item")) {
+                if (cureentchild.getNodeName().equalsIgnoreCase(context.getString(R.string.itemStr))) {
                     News item = new News();
                     NodeList itemchilds = cureentchild.getChildNodes();
                     for (int j = 0; j < itemchilds.getLength(); j++) {
                         Node cureent = itemchilds.item(j);
-                        if (cureent.getNodeName().equalsIgnoreCase("title")){
+                        if (cureent.getNodeName().equalsIgnoreCase(context.getString(R.string.titleStr))) {
                             item.setTitle(cureent.getTextContent());
-                        }else if (cureent.getNodeName().equalsIgnoreCase("description")){
+                        } else if (cureent.getNodeName().equalsIgnoreCase(context.getString(R.string.descriptionStr))) {
                             item.setDescription(cureent.getTextContent());
                             String input = item.getDescription();
                             org.jsoup.nodes.Document doc = Jsoup.parse(input);
                             String output = doc.select("img").first().attr("src");
                             item.setImage(output);
-                        }else if (cureent.getNodeName().equalsIgnoreCase("pubDate")){
+                        } else if (cureent.getNodeName().equalsIgnoreCase(context.getString(R.string.putDateStr))) {
                             item.setPubDate(cureent.getTextContent());
-                        }else if (cureent.getNodeName().equalsIgnoreCase("link")){
+                        } else if (cureent.getNodeName().equalsIgnoreCase(context.getString(R.string.linkStr))) {
                             item.setLink(cureent.getTextContent());
-                        }else if (cureent.getNodeName().equalsIgnoreCase("author")) {
+                        } else if (cureent.getNodeName().equalsIgnoreCase(context.getString(R.string.authorStr))) {
                             item.setAuthor(cureent.getTextContent());
                         }
                     }
