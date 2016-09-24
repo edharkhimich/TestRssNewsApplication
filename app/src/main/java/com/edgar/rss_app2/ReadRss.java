@@ -5,8 +5,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-
 
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
@@ -23,6 +21,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class ReadRss extends AsyncTask<Void, Void, Void> {
+
     Context context;
     private static final String URL = "http://www.cbc.ca/cmlink/rss-topstories";
     ProgressDialog progressDialog;
@@ -34,27 +33,25 @@ public class ReadRss extends AsyncTask<Void, Void, Void> {
     public ReadRss(Context context, RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
         this.context = context;
-//        progressDialog = new ProgressDialog(context);
-//        progressDialog.setMessage("Loading...");
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Loading...");
     }
 
     @Override
     protected void onPreExecute() {
-//        progressDialog.show();
+        progressDialog.show();
         super.onPreExecute();
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-//        progressDialog.dismiss();
+        progressDialog.dismiss();
 
         MyAdapter adapter = new MyAdapter(context,feedItems);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
-
     }
-
 
     @Override
     protected Void doInBackground(Void... params) {
@@ -93,12 +90,6 @@ public class ReadRss extends AsyncTask<Void, Void, Void> {
                         }
                     }
                     feedItems.add(item);
-                    Log.d("itemTitle", item.getTitle());
-                    Log.d("itemDescription",item.getDescription());
-                    Log.d("itemPubDate",item.getPubDate());
-                    Log.d("itemLink",item.getLink());
-                    Log.d("itemImage", item.getImage());
-                    Log.d("itemAuthor", item.getAuthor());
                 }
             }
         }

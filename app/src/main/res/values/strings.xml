@@ -3,4 +3,5 @@
     <string name="title">"Title: "</string>
     <string name="publication_date">"Publication Date: "</string>
     <string name="author">"Author: "</string>
+    <string name="rss_news">RSS News</string>
 </resources>
