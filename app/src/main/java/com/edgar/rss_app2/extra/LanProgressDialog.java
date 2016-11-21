@@ -8,7 +8,6 @@ import android.view.WindowManager;
 
 import com.edgar.rss_app2.R;
 
-
 public class LanProgressDialog extends Dialog {
 
     public LanProgressDialog(Context context) {
@@ -22,5 +21,4 @@ public class LanProgressDialog extends Dialog {
         setCancelable(false);
         setContentView(R.layout.dialog_lan);
     }
-
 }

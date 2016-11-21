@@ -36,21 +36,18 @@ public class WebPageActivity extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                Log.d(WebPageActivity.class.getSimpleName(), "Start load URL : " + url);
                 super.onPageStarted(view, url, favicon);
                 dialog.show();
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                Log.d(WebPageActivity.class.getSimpleName(), "Finished URL : " + url);
                 super.onPageFinished(view, url);
                 if (dialog != null) {
                     dialog.dismiss();
                 }
             }
         });
-        Log.d(WebPageActivity.class.getSimpleName(), "intent url: " + imageUrl);
         webView.loadUrl(imageUrl);
     }
 }

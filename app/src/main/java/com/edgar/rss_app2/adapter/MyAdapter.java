@@ -22,7 +22,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     ArrayList<News> feedItems;
     Context context;
-    String link;
     public static final String KEY = "key";
 
     public MyAdapter(Context context, ArrayList<News> feedItems) {
@@ -32,8 +31,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.d(MyAdapter.class.getSimpleName(), "onCreateViewHolder");
-
         View view = LayoutInflater.from(context).inflate(R.layout.item, parent, false);
         MyViewHolder holder = new MyViewHolder(view);
         return holder;
@@ -41,10 +38,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        Log.d(MyAdapter.class.getSimpleName(), "onBindViewHolder");
-
         final News current = feedItems.get(position);
-
 
         holder.title.setText(context.getString(R.string.title) + current.getTitle());
         holder.pubDate.setText(context.getString(R.string.publication_date) + current.getPubDate());
@@ -53,11 +47,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         holder.cardView.setTag(current);
 
-
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(MyAdapter.class.getSimpleName(), "Send link : " + link);
                 final News current = (News) view.getTag();
                 Intent intent = new Intent(context, WebPageActivity.class);
                 intent.putExtra(KEY, current.getLink());
@@ -76,18 +68,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         CardView cardView;
         TextView title, pubDate, author;
         ImageView image;
-        String url;
 
         public MyViewHolder(final View itemView) {
-
             super(itemView);
-
             title = (TextView) itemView.findViewById(R.id.title);
             pubDate = (TextView) itemView.findViewById(R.id.pubDate);
             author = (TextView) itemView.findViewById(R.id.author);
             image = (ImageView) itemView.findViewById(R.id.image);
             cardView = (CardView) itemView.findViewById(R.id.card_view);
-
         }
     }
 }

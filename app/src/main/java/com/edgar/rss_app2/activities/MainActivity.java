@@ -27,11 +27,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         myToolbar.setNavigationIcon(R.drawable.ic_back);
-
         myToolbar.setTitle(R.string.rss_news);
-
         setSupportActionBar(myToolbar);
-
 
         RssParsel readRss = new RssParsel(this, recyclerView);
         readRss.execute();
